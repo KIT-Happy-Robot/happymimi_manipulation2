@@ -1,0 +1,5 @@
+geometry_msgs/Point goal
+---
+bool result
+---
+string feedback
