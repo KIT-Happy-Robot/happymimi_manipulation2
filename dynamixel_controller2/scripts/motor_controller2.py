@@ -7,6 +7,7 @@ import threading
 import time
 import rclpy
 from rclpy.node import Node
+from rclpy.clock import Clock
 from std_msgs.msg import Bool, Float64, Float64MultiArray
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from dynamixel_workbench_msgs.msg import DynamixelStateList
@@ -70,14 +71,14 @@ class MotorController(Node):
   
   def motorPub(self, joint_name, joint_angle, execute_time = 0.8):
     msg = JointTrajectory()
-    t = self.set_clock().now
-    msg.header.stamp = t.to_msg()
+    #t = self.set_clock().now
+    msg.header.stamp = Clock.now #t.to_msg()
     msg.Joint_names = joint_name
     #msg.points = [JointTrajectoryPoint() for i in range(1)]
     msg.points = [JointTrajectoryPoint()]
     msg.points[0].positions = joint_angle
     msg.points[0].time_from_start = time.time(execute_time)
-    self.motor_pub.publish(msg) 
+    self.m_pub.publish(msg) 
   
   def dxlCallAsync(self, cmd, id, name, value):
     self.dxl_req.command = cmd

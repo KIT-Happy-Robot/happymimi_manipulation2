@@ -20,6 +20,19 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(happymimi_msgs2 REQUIRED)
+find_package(mimi_mani_msgs2 REQUIRED)
+
+#--- Python setting
+ament_python_install_package(${PROJECT_NAME})
+install(DERECTORY src scripts launch param grasping_object2)
+install(PROGRAMS scripts/recognition_to_grasping_master2.py
+                 scripts/grasping_acserver2.py
+        DESTINATION lib/${PROJECT_NAME}
+)
+#---
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
